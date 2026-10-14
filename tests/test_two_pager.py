@@ -3,6 +3,7 @@ import importlib.util
 from pathlib import Path
 import tempfile
 import unittest
+import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('two_pager', ROOT / 'skills/two-pager/scripts/two_pager.py')
@@ -53,7 +54,11 @@ class TwoPagerTests(unittest.TestCase):
         source_dir, output = self.root / 'draft', self.root / 'final'
         tool.scaffold(source_dir, '도서관 예약 개선', 'LIBRARY')
         source = source_dir / 'two-pager.html'
-        tool.render(source, output, None)
+        try:
+            tool.render(source, output, None)
+        except ValueError:
+            shutil.copytree(output / '.qa/two-pager', ROOT / 'output/test-failure', dirs_exist_ok=True)
+            raise
         pdf, html = output / 'two-pager.pdf', output / 'two-pager.html'
         self.assertEqual(len(PdfReader(pdf).pages), 2)
         self.assertIn('도서관 예약 개선', PdfReader(pdf).pages[0].extract_text())

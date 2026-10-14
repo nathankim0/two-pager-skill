@@ -165,7 +165,8 @@ def render(source: Path, output: Path, browser: str | None):
                 if report['issues']:
                     report['passed'] = False
                     (qa / 'report.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf-8')
-                    raise ValueError(f"Layout check failed ({len(report['issues'])} issues). Inspect {qa}")
+                    details = json.dumps(report['issues'][:5], ensure_ascii=False)
+                    raise ValueError(f"Layout check failed ({len(report['issues'])} issues): {details}. Inspect {qa}")
                 page.pdf(path=str(candidate_pdf), prefer_css_page_size=True, print_background=True, display_header_footer=False)
             finally:
                 instance.close()
