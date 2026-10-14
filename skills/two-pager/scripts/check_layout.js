@@ -1,5 +1,6 @@
 () => {
   const issues = [];
+  const context = document.createElement('canvas').getContext('2d');
   const pages = Array.from(document.querySelectorAll('article.page'));
   if (pages.length !== 2) issues.push({type:'page-count', expected:2, actual:pages.length});
   pages.forEach((page, index) => {
@@ -20,13 +21,22 @@
       if (!node.textContent.trim() || parent.closest('script,style,[data-qa-ignore]')) continue;
       const range = document.createRange();
       range.selectNodeContents(node);
+      const style = getComputedStyle(parent);
+      context.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+      const metrics = context.measureText(node.textContent.trim());
       for (const rect of range.getClientRects()) {
         if (!rect.width || !rect.height) continue;
         const text = node.textContent.trim().slice(0,160);
         const box = {left:rect.left,top:rect.top,right:rect.right,bottom:rect.bottom,text};
-        if (rect.left < bounds.left-1 || rect.right > bounds.right+1 || rect.top < bounds.top-1 || rect.bottom > bounds.bottom+1)
+        // CJK font boxes include leading; compare ink bounds when the untransformed font metrics match.
+        if (Math.abs(rect.height - metrics.fontBoundingBoxAscent - metrics.fontBoundingBoxDescent) <= 2) {
+          const baseline = rect.bottom - metrics.fontBoundingBoxDescent;
+          box.top = baseline - metrics.actualBoundingBoxAscent - 1;
+          box.bottom = baseline + metrics.actualBoundingBoxDescent + 1;
+        }
+        if (box.left < bounds.left-1 || box.right > bounds.right+1 || box.top < bounds.top-1 || box.bottom > bounds.bottom+1)
           record({type:'outside-page',text});
-        if (parent.closest('.content') && rect.bottom > limit+1)
+        if (parent.closest('.content') && box.bottom > limit+1)
           record({type:'below-content',text});
         const owner = parent.closest('td,th,.column');
         if (owner) {

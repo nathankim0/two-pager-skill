@@ -82,6 +82,20 @@ class TwoPagerTests(unittest.TestCase):
         self.assertFalse((output / 'two-pager.pdf').exists())
         self.assertTrue((output / '.qa/two-pager/report.json').exists())
 
+    def test_visible_text_overlap_blocks_delivery(self):
+        import json
+        source_dir, output = self.root / 'draft', self.root / 'final'
+        tool.scaffold(source_dir, '겹침 검증', 'LIBRARY')
+        source = source_dir / 'two-pager.html'
+        source.write_text(source.read_text().replace(
+            '<section class="summary">',
+            '<p style="position:absolute;top:450px;left:470px;font-size:30px">겹치는 글자</p><section class="summary">', 1))
+        with self.assertRaises(ValueError):
+            tool.render(source, output, None)
+        report = json.loads((output / '.qa/two-pager/report.json').read_text())
+        self.assertTrue(any(issue['type'] == 'overlap' for issue in report['issues']))
+        self.assertFalse((output / 'two-pager.pdf').exists())
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -22,12 +22,20 @@
 
 ## 설치
 
-같은 `skills/two-pager/SKILL.md`를 두 도구가 읽습니다. 특정 모델 API, MCP 서버, 다른 스킬이 필요하지 않습니다. 로컬 파일 생성과 명령 실행이 가능한 Codex 또는 Claude Code 환경을 사용하세요.
+공통 코드는 `skills/two-pager/` 한 곳에 있습니다. 저장소의 `.agents/skills/two-pager`와 `.claude/skills/two-pager`는 이 폴더를 가리키는 상대 심볼릭링크입니다. 같은 `SKILL.md`와 스크립트를 두 도구가 읽으므로 코드 복사본을 따로 관리하지 않습니다. 특정 모델 API, MCP 서버, 다른 스킬이 필요하지 않습니다. 로컬 파일 생성과 명령 실행이 가능한 Codex 또는 Claude Code 환경을 사용하세요.
 
 ### macOS / Linux
 
 ```bash
 git clone https://github.com/nathankim0/two-pager-skill.git
+cd two-pager-skill
+```
+
+Git 없이 설치하려면 [최신 릴리스](https://github.com/nathankim0/two-pager-skill/releases/latest)의 설치 ZIP을 사용할 수 있습니다. 기존 폴더가 없는 위치에서 압축을 풀고 아래 링크 설치 명령을 이어서 실행하세요.
+
+```bash
+curl -fL https://github.com/nathankim0/two-pager-skill/releases/latest/download/two-pager-skill.zip -o two-pager-skill.zip
+unzip two-pager-skill.zip
 cd two-pager-skill
 ```
 
@@ -47,23 +55,24 @@ ln -s "$PWD/skills/two-pager" ~/.claude/skills/two-pager
 
 두 명령을 모두 실행하면 같은 스킬을 함께 사용합니다. 이미 같은 이름의 스킬이 있다면 덮어쓰지 말고 위치를 먼저 확인하세요. 링크가 가리키는 저장소를 옮기거나 삭제하면 스킬을 사용할 수 없습니다. 업데이트는 이 저장소에서 `git pull`로 반영합니다.
 
-프로젝트에서만 사용하려면 사용자 홈 대신 프로젝트의 `.agents/skills/` 또는 `.claude/skills/`에 링크하거나 폴더를 복사하세요.
+이 저장소 안에서만 사용한다면 포함된 프로젝트 심볼릭링크로 스킬을 탐색할 수 있습니다. 다른 프로젝트에서만 사용하려면 해당 프로젝트의 `.agents/skills/`와 `.claude/skills/`에 공통 폴더를 가리키는 링크를 만드세요. ZIP 설치의 업데이트는 새 릴리스 파일로 공통 폴더를 교체하면 됩니다.
 
 ### Windows PowerShell
 
-심볼릭 링크 권한 없이 복사해 설치할 수 있습니다.
+Windows에서는 개발자 모드를 켜거나 관리자 PowerShell에서 심볼릭링크를 만드세요. Git 체크아웃에서도 링크가 유지되도록 `core.symlinks`를 지정합니다.
 
 ```powershell
-git clone https://github.com/nathankim0/two-pager-skill.git
+git -c core.symlinks=true clone https://github.com/nathankim0/two-pager-skill.git
 cd two-pager-skill
 
 New-Item -ItemType Directory -Force "$HOME/.agents/skills"
 New-Item -ItemType Directory -Force "$HOME/.claude/skills"
-Copy-Item -Recurse ./skills/two-pager "$HOME/.agents/skills/two-pager"
-Copy-Item -Recurse ./skills/two-pager "$HOME/.claude/skills/two-pager"
+$sharedSkill = (Resolve-Path ./skills/two-pager).Path
+New-Item -ItemType SymbolicLink -Path "$HOME/.agents/skills/two-pager" -Target $sharedSkill
+New-Item -ItemType SymbolicLink -Path "$HOME/.claude/skills/two-pager" -Target $sharedSkill
 ```
 
-대상 폴더가 없는 상태에서 실행하세요. 복사 설치는 저장소를 업데이트한 뒤 설치 폴더에도 변경 파일을 반영해야 합니다.
+대상 링크가 없는 상태에서 실행하세요. 두 도구 모두 같은 공통 폴더를 참조합니다.
 
 Codex에서 스킬이 보이지 않으면 새 세션을 시작하세요. Claude Code는 `/two-pager`로 확인할 수 있습니다. 설치 경로는 [Codex 공식 문서](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills), [Claude Code 공식 문서](https://code.claude.com/docs/en/skills#choose-where-skills-load)를 따릅니다.
 
@@ -136,6 +145,7 @@ python3 skills/two-pager/scripts/two_pager.py crop ./ui.png \
 | --- | --- |
 | 숫자가 크다는 이유로 핵심보다 먼저 보임 | 강조는 의사결정 중요도로 정하고 근거 수치는 본문에 배치 |
 | 한글이 음절 단위로 줄바꿈됨 | `word-break: keep-all`과 의미 단위 개행 |
+| Linux 한글 글꼴의 여백이 겹침으로 판정됨 | 실제 글자 영역으로 판정하고 블록의 줄 높이를 명시 |
 | 단계 라벨이 늘어나 마지막 행이 밀림 | 짧은 두 줄 라벨과 고정된 콘텐츠 영역 |
 | 그림을 뒤늦게 넣어 전체 재배치 | 이미지 공간을 먼저 확보하고 필요한 부분만 자르기 |
 | 가상 UI와 제안 조건이 충돌 | AI 시안 표시와 내용에 맞는 영역 선택 |
@@ -152,7 +162,7 @@ python3 -m pip install -r skills/two-pager/scripts/requirements.txt
 python3 -m unittest discover -s tests -v
 ```
 
-테스트는 두 페이지 출력과 한글 추출, 범위를 벗어난 자르기 거부, 원본 이미지 보존, 외부 이미지 거부, 겹침·페이지 수 실패 시 기존 최종 파일 보존을 확인합니다. GitHub Actions에서는 Linux Chromium과 한국어 글꼴로 같은 테스트를 실행합니다.
+테스트는 두 페이지 출력과 한글 추출, 범위를 벗어난 자르기 거부, 원본 이미지 보존, 외부 이미지 거부, 실제 글자 겹침 차단, 페이지 수 실패 시 기존 최종 파일 보존을 확인합니다. GitHub Actions에서는 Linux Chromium과 한국어 글꼴로 같은 테스트를 실행합니다.
 
 ## 범위
 

@@ -7,6 +7,7 @@ These are lessons from real layout revisions, not requirements to copy one compa
 | A supporting percentage dominated the proposal | Put the percentage in body copy. Emphasize the recommendation or decision, not whichever number is available. |
 | A generic slide renderer split Korean syllables and ignored authored newlines | Use native HTML text with `word-break: keep-all`. Use `<br>` at meaningful phrase boundaries. Don't patch a Japanese wrapping engine for each brief. |
 | Bold Korean text touched nearby lines | Use line height around 1.3–1.45 and explicit row heights. Leave clearance under two-line headings. |
+| Linux CJK font leading triggered false overlap reports | Compare glyph ink bounds instead of the entire font box; keep heading and highlight line heights explicit. Inspect both page previews after changing fonts. |
 | Three-line black stage labels expanded every row and pushed the last stage into the footer | Use a short two-line label such as `02 / 퀘스트`; put the full name in adjacent copy. |
 | Content barely fit, then an image pushed it over | Budget image width before writing the neighboring copy. A cropped UI fragment communicates more at the same width than a full collage. |
 | A generated UI showed rewards incompatible with the written proposal | Use another crop or omit the conflicting area. Label it AI-generated; don't silently treat illustration details as requirements. |
