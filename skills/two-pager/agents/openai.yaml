@@ -1,0 +1,4 @@
+interface:
+  display_name: "Two Pager"
+  short_description: "한글 대표 보고를 두 페이지 HTML·PDF로 압축하고 검증"
+  default_prompt: "Use $two-pager to turn these notes into a Korean two-page executive brief following the supplied reference."

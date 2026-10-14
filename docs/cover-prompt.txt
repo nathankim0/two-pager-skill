@@ -1,0 +1,6 @@
+Use case: precise-object-edit
+Asset type: wide GitHub README cover
+Primary request: remove the line "Codex + Claude" completely from the supplied cover.
+Keep the exact "2PAGER" title, the small "HTML / PDF" label, the two document sheets, their green/charcoal editorial design, warm paper texture, and the existing lighting and desk composition.
+Rebalance the spacing in the left typography after removing the line so it feels deliberate, quiet and clean.
+Do not add replacement slogans, platform names, logos, badges, extra text, or new objects.

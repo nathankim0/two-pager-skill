@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__ · 2pager</title>
+<style>
+:root { --ink:#292929; --muted:#686868; --rule:#bebebe; --green:#64df38; --tint:#d6f8cd; }
+* { box-sizing:border-box; }
+html,body { margin:0; }
+body { background:#ececec; color:var(--ink); font-family:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif; -webkit-font-smoothing:antialiased; }
+.page { position:relative; width:1760px; height:990px; background:white; margin:24px auto; overflow:hidden; }
+.header { position:absolute; inset:0 0 auto; height:124px; border-bottom:1px solid #d0d0d0; }
+.header h1 { position:absolute; left:48px; top:35px; margin:0; font-size:43px; line-height:1.2; font-weight:750; letter-spacing:-.4px; }
+.brand { position:absolute; right:64px; top:44px; font-size:32px; font-weight:750; color:#359b48; }
+.summary { position:absolute; top:158px; left:56px; right:48px; height:190px; border-bottom:2px solid #484848; }
+.lead { margin:0; font-size:29px; font-weight:730; line-height:1.3; letter-spacing:-.2px; }
+.summary ul { margin:12px 0 0; padding-left:31px; font-size:24px; line-height:1.42; }
+.summary li { padding-left:5px; }
+.content { position:absolute; left:52px; right:52px; top:376px; bottom:84px; }
+.content.three { display:grid; grid-template-columns:390px 788px 430px; gap:24px; }
+.content.two { display:grid; grid-template-columns:804px 804px; gap:48px; }
+.column { min-width:0; }
+h2 { font-size:25px; line-height:1.2; font-weight:750; margin:0 0 13px; padding:0 0 13px; border-bottom:2px dotted #999; letter-spacing:-.2px; }
+p { margin:0; }
+b,strong { font-weight:730; }
+a { color:inherit; text-decoration:none; }
+a:hover { text-decoration:underline; }
+a:focus-visible { outline:2px solid #35931d; outline-offset:2px; }
+.evidence { padding:0 6px; }
+.evidence p { font-size:21px; line-height:1.4; }
+.evidence p+p { margin-top:12px; }
+.ad-table { width:100%; border-collapse:collapse; font-size:20px; line-height:1.3; margin-top:10px; }
+.ad-table td { padding:3px 0; }
+.ad-table td:last-child { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.ad-table tr:last-child td { border-top:1px solid #bbb; padding-top:8px; font-weight:730; }
+.opportunity { margin:15px 6px 0; font-size:21px; line-height:1.38; }
+.opportunity p+p { margin-top:9px; }
+.chevron { margin:9px auto 12px; width:24px; height:16px; border-bottom:7px solid #a0a0a0; border-right:7px solid #a0a0a0; transform:rotate(45deg); }
+.thesis { text-align:center; font-size:25px; font-weight:740; line-height:1.32; margin-top:9px; }
+.strategy { display:grid; grid-template-columns:88px 1fr; gap:14px; min-height:113px; padding:9px 0; border-bottom:1px solid var(--rule); align-items:center; }
+.strategy:first-of-type { padding-top:0; min-height:109px; }
+.strategy:last-of-type { border-bottom:none; }
+.step-box { background:#050505; color:white; height:75px; display:flex; align-items:center; justify-content:center; text-align:center; font-size:22px; font-weight:750; line-height:1.4; padding:0 2px; }
+.strategy-text { font-size:21px; line-height:1.38; letter-spacing:-.13px; }
+.strategy-text p+p { margin-top:5px; }
+.benchmark { background:#f3f3f3; padding:6px 13px; margin-bottom:6px; }
+.benchmark h3 { margin:0 0 1px; font-size:21px; line-height:1.2; font-weight:730; }
+.benchmark p { font-size:19px; line-height:1.22; }
+.benchmark sup { font-size:13px; margin-left:2px; vertical-align:super; }
+.bench-note { font-size:18px; line-height:1.3; margin:10px 2px 0; color:var(--muted); }
+.cost-table { width:100%; border-collapse:collapse; font-size:21px; line-height:1.25; }
+.cost-table th { padding:6px 12px; background:#efefef; font-weight:730; text-align:right; }
+.cost-table th:first-child,.cost-table td:first-child { text-align:left; }
+.cost-table td { border-bottom:1px solid #ccc; padding:6px 12px; text-align:right; font-variant-numeric:tabular-nums; }
+.saving { display:flex; justify-content:space-between; align-items:center; padding:7px 13px; background:var(--tint); font-size:22px; font-weight:750; }
+.saving strong { font-size:27px; }
+.note { font-size:16px; line-height:1.3; color:var(--muted); margin-top:5px; }
+.subhead { font-size:21px; line-height:1.2; margin:10px 0 4px; font-weight:730; }
+.metric-table { width:100%; border-collapse:collapse; font-size:19px; line-height:1.25; }
+.metric-table th { width:137px; text-align:left; white-space:nowrap; font-weight:720; }
+.metric-table th,.metric-table td { border-bottom:1px solid #ddd; padding:2px 8px; }
+.risk { margin-top:7px; font-size:18px; line-height:1.25; }
+.timeline { position:relative; padding-left:32px; }
+.roadmap-layout { display:grid; grid-template-columns:1fr 192px; gap:18px; }
+.ui-concept { margin:0; }
+.ui-concept img { display:block; width:192px; height:auto; border:1px solid #ddd; }
+.ui-concept figcaption { font-size:17px; line-height:1.25; color:#666; text-align:center; margin-top:7px; }
+.timeline::before { content:""; position:absolute; width:1px; background:#666; left:13px; top:13px; height:233px; }
+.phase { position:relative; min-height:77px; padding-bottom:3px; }
+.phase::before { content:""; position:absolute; background:var(--green); border:1px solid #606060; border-radius:50%; width:22px; height:22px; left:-30px; top:2px; }
+.phase h3 { margin:0 0 2px; font-size:22px; line-height:1.2; font-weight:750; }
+.phase p { font-size:19px; line-height:1.23; }
+.phase p:last-child { font-size:18px; line-height:1.2; }
+.phase .gate { display:inline; background:#ececec; color:#353535; padding:1px 3px; }
+.launch { border-top:1px solid #999; padding-top:7px; margin-top:0; font-size:18px; line-height:1.3; }
+.launch h3 { font-size:20px; line-height:1.2; margin:0 0 4px; }
+.launch p+p { margin-top:4px; }
+.launch sup { font-size:12px; }
+.decision { position:absolute; left:52px; right:52px; bottom:78px; background:var(--tint); padding:8px 15px; font-size:22px; line-height:1.27; font-weight:730; }
+.second .content { bottom:132px; }
+.footer { position:absolute; bottom:0; left:0; right:0; height:69px; border-top:1px solid #d2d2d2; }
+.sources { position:absolute; left:52px; top:9px; font-size:14px; color:#717171; line-height:1.42; }
+.sources a { text-decoration:underline; text-decoration-color:#aaa; text-underline-offset:2px; }
+.meta { position:absolute; right:52px; bottom:14px; font-size:18px; color:#b7b7b7; }
+.meta .page-no { display:inline-block; width:36px; text-align:right; }
+.toolbar { position:fixed; right:16px; bottom:14px; z-index:5; }
+.toolbar button { font:600 15px "Apple SD Gothic Neo",sans-serif; padding:8px 13px; border:1px solid #aaa; background:white; border-radius:3px; cursor:pointer; }
+@page { size:1760px 990px; margin:0; }
+@media print {
+  body { background:white; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .page { margin:0; break-after:page; }
+  .page:last-of-type { break-after:auto; }
+  .toolbar { display:none; }
+}
+
+html { word-break:keep-all; overflow-wrap:normal; }
+.reference { background:#f3f3f3; margin-bottom:12px; padding:16px; font-size:21px; line-height:1.4; }
+.reference h3 { margin:0 0 7px; font-size:23px; }
+</style>
+</head>
+<body>
+<main>
+<article class="page first" aria-label="1페이지: 동네 도서관 서비스 개선 방향">
+  <header class="header">
+    <h1>__TITLE__ (1)</h1>
+    <span class="brand">__BRAND__</span>
+  </header>
+  <section class="summary">
+    <p class="lead">도서 예약과 수령 안내를 하나의 흐름으로 연결하여<br>이용자의 방문 준비를 돕고 사서의 반복 안내 업무를 줄이는 서비스 개선안</p>
+    <ul>
+      <li><b>사업 목표:</b> 예약 접근성 개선, 미수령 감소, 반복 전화 문의 감소</li>
+      <li><b>의사결정:</b> 한 지점에서 예약·알림 시범 운영 후 이용자 반응과 운영 부담을 확인</li>
+    </ul>
+  </section>
+  <div class="content three">
+    <section class="column">
+      <h2>1. 현황과 개선 기회</h2>
+      <div class="evidence">
+        <p>전화와 방문에 의존하는 예약이<br><b>이용자와 사서 모두에게 부담</b></p>
+        <p>예시 도서관의 월간 문의 1,000건 중<br>600건이 예약·수령 관련 반복 문의</p>
+        <table class="ad-table" aria-label="가상 월간 문의 구성">
+          <tbody>
+            <tr><td>도서 예약</td><td>360건</td></tr>
+            <tr><td>수령 일정 확인</td><td>240건</td></tr>
+            <tr><td>기타 문의</td><td>400건</td></tr>
+            <tr><td>월간 문의 합계</td><td>1,000건</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="opportunity">
+        <p><b>예약 가능 여부와 수령 기한</b>을<br>한 화면에서 확인하도록 개선</p>
+      </div>
+      <div class="chevron" aria-hidden="true"></div>
+      <p class="thesis">방문 전에 예약을 마치고,<br>알림으로 수령을 준비한다</p>
+    </section>
+    <section class="column">
+      <h2>2. 예약·알림 서비스 설계</h2>
+      <div class="strategy">
+        <div class="step-box">01<br>예약</div>
+        <div class="strategy-text">
+          <p>- 도서 검색부터 예약까지 <b>휴대전화에서 한 번에 완료</b></p>
+          <p>- 예약 가능 상태, 예상 대기, 취소 방법을 같은 화면에 표시</p>
+        </div>
+      </div>
+      <div class="strategy">
+        <div class="step-box">02<br>알림</div>
+        <div class="strategy-text">
+          <p>- 도서가 준비되면 수령 위치와 기한을 알림으로 안내</p>
+          <p>- 만료 전 한 차례 재안내, <b>알림 수신 여부는 이용자 선택</b></p>
+        </div>
+      </div>
+      <div class="strategy">
+        <div class="step-box">03<br>수령</div>
+        <div class="strategy-text">
+          <p>- 현장에서 예약 번호 확인 후 수령 처리</p>
+          <p>- 수령·취소 상태를 사서 업무 화면과 이용자 화면에 반영</p>
+        </div>
+      </div>
+      <div class="strategy">
+        <div class="step-box">04<br>운영</div>
+        <div class="strategy-text">
+          <p>- 전화 예약을 병행해 디지털 이용이 어려운 주민도 지원</p>
+          <p>- 문의 유형·미수령 원인을 기록하고 개선 우선순위 결정</p>
+        </div>
+      </div>
+    </section>
+    <section class="column">
+      <h2>3. 운영 대안 비교</h2>
+      <div class="reference">
+        <h3>현행 전화 예약</h3>
+        <p>상담으로 상황을 자세히 확인 가능<br>반복 확인과 운영 시간 제약이 큼</p>
+      </div>
+      <div class="reference">
+        <h3>웹 예약만 제공</h3>
+        <p>예약 접근성 개선과 접수 자동화<br>수령 안내·미수령 관리가 별도 업무</p>
+      </div>
+      <div class="reference">
+        <h3>예약·알림 통합</h3>
+        <p>예약부터 수령 준비까지 연결<br>상태 연동과 알림 운영 기반 필요</p>
+      </div>
+      <p class="bench-note"><b>제안:</b> 통합 흐름을 한 지점에서 먼저 검증<br>예상 효과는 시범 운영으로 확인</p>
+    </section>
+  </div>
+  <footer class="footer">
+    <div class="sources">공개 예제: 도서관·문의량·운영 조건은 모두 가상이며 실제 기관의 자료가 아님.<br>이 페이지는 구조와 밀도를 보여주는 예시. 실제 업무에서는 사용자 자료와 출처로 교체.</div>
+    <div class="meta">가상 데이터 예제 <span class="page-no">1</span></div>
+  </footer>
+</article>
+<article class="page second" aria-label="2페이지: 도서관 시범 운영 계획">
+  <header class="header">
+    <h1>__TITLE__ (2)</h1>
+    <span class="brand">__BRAND__</span>
+  </header>
+  <section class="summary">
+    <p class="lead">예약 접근성뿐 아니라 미수령과 반복 문의의 변화를 함께 측정하고,<br>주민의 이용 편의와 사서의 운영 부담이 개선될 때 다음 지점으로 확대</p>
+    <ul>
+      <li><b>검증 목표:</b> 전화 의존도와 미수령률 감소, 수령 안내의 일관성 확보</li>
+      <li><b>운영 원칙:</b> 한 지점에서 시범 운영, 기존 전화·방문 지원을 병행</li>
+    </ul>
+  </section>
+  <div class="content two">
+    <section class="column">
+      <h2>4. 기대 효과와 검증 지표</h2>
+      <table class="cost-table" aria-label="가상 기준선과 검증 목표">
+        <thead><tr><th>관리 지표</th><th>가상 기준선</th><th>검증 목표</th></tr></thead>
+        <tbody>
+          <tr><td>전화 예약 비중</td><td>60%</td><td><b>30% 이하</b></td></tr>
+          <tr><td>미수령률</td><td>18%</td><td><b>10% 이하</b></td></tr>
+        </tbody>
+      </table>
+      <div class="saving"><span>확대 판단의 기준</span><strong>이용 편의와 운영 부담</strong></div>
+      <p class="note">수치는 예제용 기준선과 목표. 성과나 예측값이 아님.<br>서비스 이용 증가가 추가 문의나 알림 비용을 늘릴 가능성도 함께 평가.</p>
+      <h3 class="subhead">도입 전후 같은 정의로 비교</h3>
+      <table class="metric-table" aria-label="도서관 시범 운영 지표">
+        <tbody>
+          <tr><th>접근성</th><td>예약 완료율, 모바일 예약 이용자 수</td></tr>
+          <tr><th>수령 경험</th><td>예약 대비 수령률, 알림 수신 후 수령 시간</td></tr>
+          <tr><th>운영 부담</th><td>반복 문의 건수, 사서의 안내 업무 시간</td></tr>
+          <tr><th>안정성</th><td>예약 상태 불일치, 알림 실패·중복 발송</td></tr>
+          <tr><th>수용성</th><td>이용자 만족도, 전화·방문 지원 요청</td></tr>
+        </tbody>
+      </table>
+      <p class="risk"><b>주요 고려 사항:</b> 디지털 접근성, 상태 연동 오류, 과도한 알림</p>
+    </section>
+    <section class="column">
+      <h2>5. 단계별 추진 로드맵</h2>
+      <div class="timeline">
+        <div class="phase">
+          <h3>PHASE 1. 예약 흐름과 기준선 확인</h3>
+          <p>기존 접수·보관·수령 과정을 확인하고 문의 유형 정리</p>
+          <p><span class="gate">산출물: 운영 흐름, 측정 정의, 시범 지점</span></p>
+        </div>
+        <div class="phase">
+          <h3>PHASE 2. 예약·상태 조회 시범 운영</h3>
+          <p>도서 검색, 예약, 취소, 수령 기한 조회 제공</p>
+          <p><span class="gate">검증: 예약 완료율, 전화 예약 비중</span></p>
+        </div>
+        <div class="phase">
+          <h3>PHASE 3. 준비·만료 알림 연계</h3>
+          <p>예약 상태와 알림을 연결하고 중복 발송 방지</p>
+          <p><span class="gate">검증: 미수령률, 알림 실패, 반복 문의</span></p>
+        </div>
+        <div class="phase">
+          <h3>PHASE 4. 운영 평가와 지점 확대</h3>
+          <p>주민 만족도와 사서 업무 부담을 확인한 뒤 확대 결정</p>
+          <p><span class="gate">확대 조건: 이용 편의·운영 부담 개선, 안정적 상태 연동</span></p>
+        </div>
+      </div>
+      <div class="launch">
+        <h3>시범 운영 전 확인 사항</h3>
+        <p><b>이용 지원:</b> 큰 글자, 명확한 수령 안내, 전화·방문 접수 병행.</p>
+        <p><b>운영 준비:</b> 예약 상태 동기화, 알림 수신 설정, 실패·중복 기록.</p>
+        <p><b>확대 판단:</b> 효과와 비용의 기준을 착수 전 정하고 도입 전후 비교.</p>
+      </div>
+    </section>
+  </div>
+  <div class="decision">의사결정 제안: 한 지점의 예약·알림 시범 운영 착수, 주민 반응과 운영 성과를 확인한 뒤 확대</div>
+  <footer class="footer">
+    <div class="sources">공개 예제: 모든 수치와 목표는 가상. 특정 기관의 운영 실적이나 검증된 개선 효과를 주장하지 않음.<br>실제 제안서에는 측정 기간·집계 기준·비용·책임자 등 의사결정을 바꾸는 조건을 추가.</div>
+    <div class="meta">가상 데이터 예제 <span class="page-no">2</span></div>
+  </footer>
+</article>
+</main>
+<aside class="toolbar"><button type="button" onclick="window.print()">PDF 저장</button></aside>
+</body>
+</html>
