@@ -14,6 +14,12 @@ These are lessons from real layout revisions, not requirements to copy one compa
 | Every export recreated a virtualenv | Use the cached helper. First-run setup and subsequent rendering are different costs. |
 | PDF export, screenshots, page checks, and overlap scans were separate commands | Run `render` once; it writes all QA evidence before promoting final artifacts. |
 | A layout failure overwrote a working export | Stage output, inspect validation, then replace final files only after checks pass. |
+| Event labels inside a time-series chart overlapped and crossed other event lines | Put a numbered marker on each event line and a numbered key below the chart. Merge events one or two days apart into one number. |
+| Faint dotted event lines disappeared behind light bars | Draw event lines darker and thicker than gridlines, above the bars. |
+| A requested before/after image was added as an extra page | Place it inside the matching timeline step (two screenshots side by side under one date) instead of adding a page. Mark design comps as `시안` in the caption or footer. |
+| Page 2 opened with a summary that repeated its own bullets | Remove the summary, move content up, and enlarge the screenshots. |
+| Evidence bullets mixed sentences, fragments, and `label: value` forms | Use one form for every bullet: `항목: 이전 → 이후`. Let bullets wrap naturally rather than forcing `<br>` mid-phrase. |
+| The brief and a companion PPTX drifted apart after edits | When both exist, apply each wording change to both and re-render both before delivery. |
 
 ## Default geometry
 
@@ -25,7 +31,7 @@ The starter's grid and print size must stay in sync. When matching a different r
 
 ## Working budget
 
-- One two-line recommendation plus at most two summary bullets per page.
+- One two-line recommendation plus at most two summary bullets per page. Drop the summary on a page whose content already states the point.
 - About 4–5 rows in the main strategy or roadmap section.
 - Two short lines per row; cut duplicated implications before shrinking text.
 - Prefer 3–6 concise benchmark examples with citations over a long explanation of your own redesign.

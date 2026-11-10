@@ -46,5 +46,19 @@ The first render may download Python packages and a browser. Later runs reuse th
 - Preserve constraints that could change the decision. Compress a supplied policy caveat instead of deleting it to make room; don't add hypothetical warnings unrelated to the proposal.
 - Never silently imply that generated UI is implemented or verified. Don't embed contradictory image details merely because the image looks appealing.
 - A two-page brief does not imply permission to publish source material or change a product. Upload, push, or publish only within the user's authorization.
+- When changes shipped together, label them together (`A·B 개선 +12%`) unless event-level data separates them. Treat the user's knowledge of shared ad slots, fallbacks, or rollout as evidence and recheck the code or data instead of defending the first attribution.
+- Count what the decision metric counts. Requests, loads, or clicks are not impressions or revenue; don't present a request spike as a result.
+
+## Copy rules
+
+Executives scan; they don't read paragraphs. These rules came from repeated review rounds.
+
+- **Evidence is bullets in one shape: `항목: 이전 → 이후`.** Every bullet starts with a short label (`방문:`, `매출:`, `전환율:`) followed by the value. Don't write sentences such as `1위는 …, 2위는 …. 단가 상승은 …` in a note box; use `1위: …` / `2위: …` / `단가: …`.
+- **Every change states its baseline.** Write `하루 1.2만 회 → 3.4만 회`, not `하루 3.4만 회`. If the baseline is zero because the item is new, choose a comparable baseline the reader cares about, such as the whole app or the previous period.
+- **No vague labels or reader-facing internal names.** Avoid labels such as `늘어난 곳:` and internal identifiers such as slot or event codes. Use concrete nouns (`추가된 위치: …`).
+- **No dangling fragments.** A bullet such as `신규 기능 3.2 시작` attached to an unrelated metric reads as an afterthought. Either give it its own labeled metric or delete it. Delete a number that only covers part of the claim.
+- **Don't repeat the bullets in a page summary.** If the summary restates the evidence below, delete the summary and give the space to the content. Keep a summary only when it states the conclusion the bullets don't.
+- **No default "next steps", hedges, or apologies.** Don't add `다음 확인`, `원인을 몰라 …`, `…에 확인하겠습니다`, or similar unless the user asks. A brief that a manager presents must not contain the author's personal perspective, such as `입사 전`.
+- **Footnotes follow the content.** When a metric or data source is removed, remove its mention from the source line. State the comparison period for each metric group when they differ.
 
 For density, troublesome wraps, or a new reference layout, read [references/layout-lessons.md](references/layout-lessons.md). For command details, use `two_pager.py --help` and subcommand `--help`.
