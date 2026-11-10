@@ -154,8 +154,15 @@ To select a browser, use `render --browser /path/to/chrome`. If Korean text appe
 | Every export recreated a virtual environment | Cache the runtime by Python version and dependency list |
 | PDF, preview, and page checks ran separately | Combine them in one browser run |
 | A failed revision overwrote a working PDF | Replace final files only after validation passes |
+| Evidence mixed sentences, fragments, and label-value bullets | Write every evidence bullet as `label: before → after` |
+| A number appeared without a baseline | State the baseline for every change; pick a comparable baseline when the item is new |
+| A page summary repeated the bullets below it | Drop the summary and give the space to the content |
+| Unrequested "next steps" and hedges crept into an executive brief | Leave them out unless the user asks |
+| Event labels overlapped inside a time-series chart | Put numbered markers on event lines and a numbered key below the chart |
+| A before/after image was added as an extra page | Place it inside the matching timeline step |
+| Changes shipped on the same day were credited to only one | Label them together unless event-level data separates them |
 
-See the [layout notes](skills/two-pager/references/layout-lessons.md) for details. Automated checks cover text and image overlap, content overflow, PDF page count, and page dimensions. They do not guarantee factual accuracy, color contrast, font quality, or display in every application.
+See the copy rules in [SKILL.md](skills/two-pager/SKILL.md#copy-rules) and the [layout notes](skills/two-pager/references/layout-lessons.md) for details. Automated checks cover text and image overlap, content overflow, PDF page count, and page dimensions. They do not guarantee factual accuracy, color contrast, font quality, or display in every application.
 
 ## Development and validation
 
